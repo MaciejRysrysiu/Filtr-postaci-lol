@@ -1,0 +1,2252 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Wyszukiwarka championow</title>
+<style>
+.filtr{
+    float: left;
+    width: 10%;
+    
+}
+body{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-color: #140f07;
+    color: white;
+    
+}
+input[type="checkbox"]:checked{
+    background-color: #008000;
+}
+input[type="checkbox"]{
+    appearance: none;
+    -webkit-appearance:none;
+    height: 9px;
+    width: 9px;
+    border-radius: 1px;
+    cursor: pointer;
+    margin-top: 2px;
+    background-color: darkgrey;
+
+
+}
+#kontener{
+    width: 100%;
+   margin-left: 15%;
+   margin-right: 15%; 
+}
+
+h1{
+    text-align: center;
+}
+table, th, td {
+  border:1px solid white;
+  border-collapse: collapse;
+}
+</style>
+<body>
+
+
+
+</style>
+<script type="text/javascript">
+
+let postacie=
+`[
+    {
+        "id": "1",
+        "name": "teemo",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "yordl",
+        "region": "badle city",
+        "rok": "2009",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "2",
+        "name": "sion",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "upior",
+        "region": "noxus",
+        "rok": "2009",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "3",
+        "name": "singed",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek","chemicznie zmieniony"],
+        "region": ["piltover", "zaun"],
+        "rok": "2009",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "4",
+        "name": "tryndamere",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "furia",
+        "gatunek": ["czlowiek", "magicznie zmieniony"],
+        "region": "flerjord",
+        "rok": "2009",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "5",
+        "name": "cho'gath",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "dziecko pustki",
+        "region": "pustka",
+        "rok": "2009",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "6",
+        "name": "gankplank",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": "bilgewater",
+        "rok": "2009",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "7",
+        "name": "maplhite",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "golem",
+        "region": ["ixtal", "shurima"],
+        "rok": "2009",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "8",
+        "name": "dr mundo",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "inne",
+        "gatunek": ["czlowiek", "chemicznie zmieniony"],
+        "region": "zaun",
+        "rok": "2009",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "9",
+        "name": "nasus",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "wyniesiony",
+        "region": "shurima",
+        "rok": "2009",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "10",
+        "name": "mordakaiser",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "inne",
+        "gatunek": "upior",
+        "region": "noxus",
+        "rok": "2010",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "11",
+        "name": "shen",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "energia",
+        "gatunek": ["czlowiek","spirytysta"],
+        "region": "ionia",
+        "rok": "2010",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "12",
+        "name": "kennen",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "energia",
+        "gatunek": "yordl",
+        "region": "ionia",
+        "rok": "2010",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "13",
+        "name": "garen",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "brak many",
+        "gatunek": "czlowiek",
+        "region": ["demacia", "targon"],
+        "rok": "2010",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "14",
+        "name": "urgot",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek","cyborg"],
+        "region": ["noxus", "zaun"],
+        "rok": "2010",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "15",
+        "name": "renekton",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "furia",
+        "gatunek": "wyniesiony",
+        "region": "shurima",
+        "rok": "2011",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "16",
+        "name": "yorick",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "magicznie zmieniony"],
+        "region": "wyspy cienia",
+        "rok": "2011",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "17",
+        "name": "aatorox",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "brak many",
+        "gatunek": "darkin",
+        "region": ["shurima", "inne","runeterra"],
+        "rok": "2013",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "18",
+        "name": "gnar",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "inne",
+        "gatunek": "yordl",
+        "region": "flerjord",
+        "rok": "2014",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "19",
+        "name": "kled",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "yordl",
+        "region": "noxus",
+        "rok": "2016",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "20",
+        "name": "ornn",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "bog",
+        "region": "flerjord",
+        "rok": "2017",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "21",
+        "name": "sett",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "inne",
+        "gatunek": ["czlowiek", "vastaj"],
+        "region": "ionia",
+        "rok": "2020",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "22",
+        "name": "k'sante",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": "shurima",
+        "rok": "2022",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "23",
+        "name": "heimerdinger",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "yordle",
+        "region": "piltover",
+        "rok": "2009",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "24",
+        "name": "jayce",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": "piltover",
+        "rok": "2012",
+        "walzacy_w_zwarciu": "2"
+    },
+    {
+        "id": "25",
+        "name": "maokai",
+        "pozycja": ["top","supp"],
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "duch",
+        "region": "wyspy cienia",
+        "rok": "2011",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "26",
+        "name": "olaf",
+        "pozycja": ["top", "jgl"],
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek","zrodzony z lodu"],
+        "region": "flerjord",
+        "rok": "2010",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "27",
+        "name": "pantheon",
+        "pozycja": ["top","supp"],
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "aspekt"],
+        "region": "targon",
+        "rok": "2010",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "28",
+        "name": "rumble",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "inne",
+        "gatunek": "yordle",
+        "region": "bandle_city",
+        "rok": "2011",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "29",
+        "name": "tahm kench",
+        "pozycja": ["top", "supp"],
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["demon", "duch"],
+        "region": ["bilgewater","runeterra"],
+        "rok": "2015",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "30",
+        "name": "kayle",
+        "pozycja": "top",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek, aspekt", "magicznie zmieniony"],
+        "region": ["demacia", "targon"],
+        "rok": "2009",
+        "walzacy_w_zwarciu": "2"
+    },
+    {
+        "id": "31",
+        "name": "riven",
+        "pozycja": "top",
+        "plec": "kobieta",
+        "zasoby": "brak many",
+        "gatunek": "czlowiek",
+        "region": ["ionia","noxus"],
+        "rok": "2011",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "32",
+        "name": "fiora",
+        "pozycja": "top",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": "demacia",
+        "rok": "2012",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "33",
+        "name": "quinn",
+        "pozycja": "top",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": "demacia",
+        "rok": "2013",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "34",
+        "name": "illaoi",
+        "pozycja": "top",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek","spirytysta"],
+        "region": "bilgewater",
+        "rok": "2015",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "35",
+        "name": "camille",
+        "pozycja": "top",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek","cyborg"],
+        "region": "piltover",
+        "rok": "2016",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "36",
+        "name": "gwen",
+        "pozycja": "top",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "magicznie zmieniony"],
+        "region": ["wyspy cienia", "camavor"],
+        "rok": "2021",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "37",
+        "name": "vayne",
+        "pozycja": ["top", "adc"],
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": "demacia",
+        "rok": "2011",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "38",
+        "name": "irelia",
+        "pozycja": "top",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": "ionia",
+        "rok": "2010",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "39",
+        "name": "ambessa",
+        "pozycja": "top",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": "noxus",
+        "rok": "2024",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "40",
+        "name": "voliber",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["bog", "duch"],
+        "region": "flerjord",
+        "rok": "2011",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "41",
+        "name": "vladimir",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "magicznie zmieniony"],
+        "region": ["noxus", "wyspy cienia", "camavor"],
+        "rok": "2010",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "42",
+        "name": "warwick",
+        "pozycja": ["top", "jgl"],
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek","cyborg","chemicznie zmieniony"],
+        "region": "zaun",
+        "rok": "2009",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "43",
+        "name": "yone",
+        "pozycja": ["top", "mid"],
+        "plec": "mezczyzna",
+        "zasoby": "brak many",
+        "gatunek": "czlowiek",
+        "region": "ionia",
+        "rok": "2020",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "44",
+        "name": "darius",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": "noxus",
+        "rok": "2012",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "45",
+        "name": "gragas",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": "flerjord",
+        "rok": "2010",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "46",
+        "name": "wukong",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "vastaj",
+        "region": "ionia",
+        "rok": "2011",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "47",
+        "name": "nunu",
+        "pozycja": "jgl",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek":["czlowiek","zwierze"],
+        "region": "flerjord",
+        "rok": "2009",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "48",
+        "name": "master yi",
+        "pozycja": "jgl",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek","spirytysta"],
+        "region": "ionia",
+        "rok": "2009",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "49",
+        "name": "fiddlesticks",
+        "pozycja": "jgl",
+        "plec": "inne",
+        "zasoby": "mana",
+        "gatunek": ["duch", "demon"],
+        "region": "runeterra",
+        "rok": "2009",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "50",
+        "name": "karthus",
+        "pozycja": "jgl",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "nieumarly",
+        "region": ["noxus", "wyspy cienia"],
+        "rok": "2009",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "51",
+        "name": "rammus",
+        "pozycja": "jgl",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "wyniesiony",
+        "region": "shurima",
+        "rok": "2009",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "52",
+        "name": "shaco",
+        "pozycja": "jgl",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "duch",
+        "region": "runeterra",
+        "rok": "2009",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "53",
+        "name": "nidalee",
+        "pozycja": "jgl",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek","spirytysta"],
+        "region": "ixtal",
+        "rok": "2009",
+        "walzacy_w_zwarciu": "2"
+    },
+    {
+        "id": "54",
+        "name": "shyvana",
+        "pozycja": "jgl",
+        "plec": "kobieta",
+        "zasoby": "furia",
+        "gatunek": "magicznie zmieniony",
+        "region": "demacia",
+        "rok": "2011",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "55",
+        "name": "jarvan IV",
+        "pozycja": "jgl",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": "demacia",
+        "rok": "2011",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "56",
+        "name": "lee sin",
+        "pozycja": "jgl",
+        "plec": "mezczyzna",
+        "zasoby": "energia",
+        "gatunek": ["czlowiek","spirytysta"],
+        "region": "ionia",
+        "rok": "2011",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "57",
+        "name": "skarner",
+        "pozycja": "jgl",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "brakern",
+        "region": "shurima",
+        "rok": "2011",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "58",
+        "name": "graves",
+        "pozycja": "jgl",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": "bilgewater",
+        "rok": "2011",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "59",
+        "name": "hecarim",
+        "pozycja": "jgl",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "nieumarly",
+        "region": ["wyspy cienia", "camavor"],
+        "rok": "2012",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "60",
+        "name": "kha'zix",
+        "pozycja": "jgl",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "dziecko pustki",
+        "region": "pustka",
+        "rok": "2012",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "61",
+        "name": "zac",
+        "pozycja": "jgl",
+        "plec": "mezczyzna",
+        "zasoby": "inne",
+        "gatunek": "golem",
+        "region": "zaun",
+        "rok": "2013",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "62",
+        "name": "rek'sai",
+        "pozycja": "jgl",
+        "plec": "kobieta",
+        "zasoby": "inne",
+        "gatunek": "czlowiek",
+        "region": ["shurima", "pustka"],
+        "rok": "2014",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "63",
+        "name": "ivern",
+        "pozycja": "jgl",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "magicznie zmieniony"],
+        "region": ["flerjord", "ionia"],
+        "rok": "2016",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "64",
+        "name": "kayn",
+        "pozycja": "jgl",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "darkin", "magicznie zmieniony"],
+        "region": ["ionia", "noxus", "shurima","runeterra"],
+        "rok": "2017",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "65",
+        "name": "viego",
+        "pozycja": "jgl",
+        "plec": "mezczyzna",
+        "zasoby": "brak many",
+        "gatunek": "nieumarly",
+        "region": ["wyspy cienia", "camavor"],
+        "rok": "2021",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "66",
+        "name": "amumu",
+        "pozycja": "jgl",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["yordl", "nieumarly"],
+        "region": "shurima",
+        "rok": "2009",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "67",
+        "name": "talon",
+        "pozycja": "jgl, mid",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": ["noxus","runeterra"],
+        "rok": "2011",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "68",
+        "name": "ekko",
+        "pozycja": "jgl",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": "zaun",
+        "rok": "2015",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "69",
+        "name": "xin zhao",
+        "pozycja": "jgl",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": ["demacia", "ionia", "noxus"],
+        "rok": "2010",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "70",
+        "name": "rengar",
+        "pozycja": "jgl",
+        "plec": "mezczyzna",
+        "zasoby": "inne",
+        "gatunek": "vastaj",
+        "region": ["ixtal", "shurima"],
+        "rok": "2012",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "71",
+        "name": "evelynn",
+        "pozycja": "jgl",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["demon", "duch"],
+        "region": "runeterra",
+        "rok": "2009",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "72",
+        "name": "briar",
+        "pozycja": "jgl",
+        "plec": "kobieta",
+        "zasoby": "inne",
+        "gatunek": "golem",
+        "region": "noxus",
+        "rok": "2023",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "73",
+        "name": "sejuani",
+        "pozycja": "jgl",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek","zrodzony z lodu"],
+        "region": "flerjord",
+        "rok": "2012",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "74",
+        "name": "elise",
+        "pozycja": "jgl",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": ["noxus", "wyspy cienia"],
+        "rok": "2012",
+        "walzacy_w_zwarciu": "2"
+    },
+    {
+        "id": "75",
+        "name": "vi",
+        "pozycja": "jgl",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": ["piltover", "zaun"],
+        "rok": "2012",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "76",
+        "name": "kindred",
+        "pozycja": "jgl",
+        "plec": "inne",
+        "zasoby": "mana",
+        "gatunek": ["bog", "duch"],
+        "region": "inne",
+        "rok": "2015",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "77",
+        "name": "bel'vet",
+        "pozycja": "jgl",
+        "plec": "kobieta",
+        "zasoby": "brak many",
+        "gatunek": "dziecko pustki",
+        "region": "pustka",
+        "rok": "2022",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "78",
+        "name": "diana",
+        "pozycja": "jgl",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "aspekt"],
+        "region": "targon",
+        "rok": "2012",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "79",
+        "name": "taliyah",
+        "pozycja": "jgl",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "mag"],
+        "region": "shurima",
+        "rok": "2016",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "80",
+        "name": "lilia",
+        "pozycja": "jgl",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "duch",
+        "region": "ionia",
+        "rok": "2020",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "81",
+        "name": "poppy",
+        "pozycja": "jgl",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "yordl",
+        "region": "demacia",
+        "rok": "2010",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "82",
+        "name": "udyr",
+        "pozycja": "jgl",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek","spirytysta"],
+        "region": ["flerjord", "ionia"],
+        "rok": "9",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "83",
+        "name": "jax",
+        "pozycja": "top",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "nieznany",
+        "region": ["icathia","runeterra","shurima"],
+        "rok": "2009",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "84",
+        "name": "ashe",
+        "pozycja": "adc",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "zrodzony z lodu"],
+        "region": "flerjord",
+        "rok": "2009",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "85",
+        "name": "aurora",
+        "pozycja": ["mid", "top"],
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "vastaj",
+        "region": "flerjord",
+        "rok": "2024",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "86",
+        "name": "twisted fate",
+        "pozycja": "mid",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "mag"],
+        "region": "bilgewater",
+        "rok": "2015",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "87",
+        "name": "veigar",
+        "pozycja": "mid",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "yordl",
+        "region": ["badle city","runeterra"],
+        "rok": "2015",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "88",
+        "name": "kassadin",
+        "pozycja": "mid",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "dziecko pustki"],
+        "region": ["shurima", "pustka"],
+        "rok": "2015",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "89",
+        "name": "corki",
+        "pozycja": "mid",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "yordl",
+        "region": ["bandle city", "piltover"],
+        "rok": "2015",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "90",
+        "name": "malzahar",
+        "pozycja": "mid",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "dziecko pustki"],
+        "region": ["shurima", "pustka"],
+        "rok": "2015",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "91",
+        "name": "vladimir",
+        "pozycja": "mid",
+        "plec": "mezczyzna",
+        "zasoby": "inne",
+        "gatunek": ["czlowiek", "magicznie zmieniony"],
+        "region": ["noxus", "wyspy cienia"],
+        "rok": "2015",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "92",
+        "name": "fizz",
+        "pozycja": "mid",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "yordl",
+        "region": "bilgewater",
+        "rok": "2015",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "93",
+        "name": "victor",
+        "pozycja": "mid",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek","cyborg"],
+        "region": ["piltover", "zaun"],
+        "rok": "2015",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "94",
+        "name": "zed",
+        "pozycja": "mid",
+        "plec": "mezczyzna",
+        "zasoby": "energia",
+        "gatunek": ["czlowiek", "magicznie zmieniony"],
+        "region": "ionia",
+        "rok": "2015",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "95",
+        "name": "yasuo",
+        "pozycja": "mid",
+        "plec": "mezczyzna",
+        "zasoby": "inne",
+        "gatunek": ["czlowiek", "mag"],
+        "region": "ionia",
+        "rok": "2015",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "96",
+        "name": "azir",
+        "pozycja": "mid",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "wyniesiony",
+        "region": "shurima",
+        "rok": "2015",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "97",
+        "name": "aurelion sol",
+        "pozycja": "mid",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["istota nie ziemska","zwierze"],
+        "region": "targon",
+        "rok": "2015",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "98",
+        "name": "sylas",
+        "pozycja": "mid",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek":[ "czlowiek", "mag"],
+        "region": ["demacia", "flerjord"],
+        "rok": "2015",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "99",
+        "name": "ziggs",
+        "pozycja": "mid",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "yordl",
+        "region": "zaun",
+        "rok": "2015",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "100",
+        "name": "akshan",
+        "pozycja": "mid",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": "shurima",
+        "rok": "2015",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "101",
+        "name": "ryze",
+        "pozycja": "mid",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "magicznie zmieniony"],
+        "region": ["runeterra","inne"],
+        "rok": "2015",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "102",
+        "name": "heimerdinger",
+        "pozycja": "mid",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "yordl",
+        "region": "piltover",
+        "rok": "2015",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "103",
+        "name": "galio",
+        "pozycja": "mid",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "golem",
+        "region": "demacia",
+        "rok": "2015",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "104",
+        "name": "xerath",
+        "pozycja": ["mid", "supp"],
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "wyniesiony",
+        "region": "shurima",
+        "rok": "2011",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "105",
+        "name": "smolder",
+        "pozycja": ["mid", "adc"],
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "zwierze",
+        "region": ["noxus", "camavor"],
+        "rok": "2024",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "106",
+        "name": "nafiri",
+        "pozycja": "mid",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["darkin","zwierze"],
+        "region": "shurima",
+        "rok": "2023",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "107",
+        "name": "hwei",
+        "pozycja": "mid",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "mag"],
+        "region": "ionia",
+        "rok": "2023",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "108",
+        "name": "anivia",
+        "pozycja": "mid",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["bog", "duch"],
+        "region": "flerjord",
+        "rok": "2015",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "109",
+        "name": "katarina",
+        "pozycja": "mid",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": "noxus",
+        "rok": "2015",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "110",
+        "name": "LeBlank",
+        "pozycja": "mid",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "magicznie zmieniony"],
+        "region": "noxus",
+        "rok": "2015",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "111",
+        "name": "cassiopeia",
+        "pozycja": "mid",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "magicznie zmieniony"],
+        "region": ["noxus", "shurima"],
+        "rok": "2015",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "112",
+        "name": "oriana",
+        "pozycja": "mid",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "golem",
+        "region": "piltover",
+        "rok": "2015",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "113",
+        "name": "ahri",
+        "pozycja": "mid",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "vastaj",
+        "region": "ionia",
+        "rok": "2015",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "114",
+        "name": "syndra",
+        "pozycja": "mid",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "mag"],
+        "region": "ionia",
+        "rok": "2015",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "115",
+        "name": "lissandra",
+        "pozycja": "mid",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek","zrodzony z lodu"],
+        "region": "flerjord",
+        "rok": "2015",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "116",
+        "name": "zoe",
+        "pozycja": "mid",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "aspekt"],
+        "region": "targon",
+        "rok": "2015",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "117",
+        "name": "qiyana",
+        "pozycja": "mid",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "mag"],
+        "region": "ixtal",
+        "rok": "2015",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "118",
+        "name": "vex",
+        "pozycja": "mid",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "yordl",
+        "region": ["badle city", "wyspy cienia"],
+        "rok": "2015",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "119",
+        "name": "akali",
+        "pozycja": "mid",
+        "plec": "kobieta",
+        "zasoby": "energia",
+        "gatunek": ["czlowiek","spirytysta"],
+        "region": "ionia",
+        "rok": "2015",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "120",
+        "name": "lux",
+        "pozycja": ["mid", "supp"],
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "mag"],
+        "region": "demacia",
+        "rok": "2015",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "121",
+        "name": "neeko",
+        "pozycja": ["mid", "supp"],
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "vastaj",
+        "region": "ixtal",
+        "rok": "2015",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "122",
+        "name": "vel'koz",
+        "pozycja": ["mid", "supp"],
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "dziecko pustki",
+        "region": "pustka",
+        "rok": "2015",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "123",
+        "name": "annie",
+        "pozycja": "mid",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "mag"],
+        "region": ["noxus","runeterra"],
+        "rok": "2015",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "124",
+        "name": "renata glasc",
+        "pozycja": "supp",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek","chemicznie zmieniony"],
+        "region": "zaun",
+        "rok": "2022",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "125",
+        "name": "mel",
+        "pozycja": "mid",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "magicznie zmieniony"],
+        "region": ["noxus", "piltover"],
+        "rok": "2025",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "126",
+        "name": "twitch",
+        "pozycja": "adc",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["zwierze","chemicznie zmieniony"],
+        "region": "zaun",
+        "rok": "2009",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "127",
+        "name": "ezreal",
+        "pozycja": "adc",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "mag"],
+        "region": "piltover",
+        "rok": "2010",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "128",
+        "name": "draven",
+        "pozycja": "adc",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": "noxus",
+        "rok": "2012",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "129",
+        "name": "lucian",
+        "pozycja": "adc",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": ["demacia", "wyspy cienia"],
+        "rok": "2013",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "130",
+        "name": "jhin",
+        "pozycja": "adc",
+        "plec": ["mezczyzna","spirytysta"],
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": "ionia",
+        "rok": "2016",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "131",
+        "name": "varus",
+        "pozycja": "adc",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "darkin"],
+        "region": ["ionia", "shurima"],
+        "rok": "2012",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "132",
+        "name": "tristana",
+        "pozycja": "adc",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "yordl",
+        "region": "bandle city",
+        "rok": "2009",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "133",
+        "name": "sivir",
+        "pozycja": "adc",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": "shurima",
+        "rok": "2009",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "134",
+        "name": "kog'maw",
+        "pozycja": "adc",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "dziecko pustki",
+        "region": "pustka",
+        "rok": "2010",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "135",
+        "name": "miss fortune",
+        "pozycja": "adc",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": "bilgewater",
+        "rok": "2010",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "136",
+        "name": "caitlyn",
+        "pozycja": "adc",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": "piltover",
+        "rok": "2011",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "137",
+        "name": "jinx",
+        "pozycja": "adc",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": "zaun",
+        "rok": "2013",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "138",
+        "name": "kalista",
+        "pozycja": "adc",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "nieumarly",
+        "region": ["wyspy cienia", "camavor"],
+        "rok": "2014",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "139",
+        "name": "xayah",
+        "pozycja": "adc",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "vastaj",
+        "region": "ionia",
+        "rok": "2017",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "140",
+        "name": "kai'sa",
+        "pozycja": "adc",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "dziecko pustki"],
+        "region": ["shurima", "pustka"],
+        "rok": "2018",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "141",
+        "name": "aphelios",
+        "pozycja": "adc",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek","spirytysta"],
+        "region": "targon",
+        "rok": "2019",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "142",
+        "name": "samira",
+        "pozycja": "adc",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": ["noxus", "shurima"],
+        "rok": "2020",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "143",
+        "name": "zeri",
+        "pozycja": "adc",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "czlowiek",
+        "region": "zaun",
+        "rok": "2022",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "144",
+        "name": "nilah",
+        "pozycja": "adc",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "magicznie zmieniony"],
+        "region": "bilgewater",
+        "rok": "2022",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "145",
+        "name": "nami",
+        "pozycja": "supp",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "vastaj",
+        "region": ["bilgewater","runeterra"],
+        "rok": "2012",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "146",
+        "name": "yummi",
+        "pozycja": "supp",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "magicznie zmieniony",
+        "region": "badle city",
+        "rok": "2019",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "147",
+        "name": "senna",
+        "pozycja": "supp",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "nieumarly"],
+        "region": "wyspy cienia",
+        "rok": "2019",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "148",
+        "name": "sarephine",
+        "pozycja": "supp",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "mag"],
+        "region": ["piltover", "zaun"],
+        "rok": "2020",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "149",
+        "name": "rell",
+        "pozycja": "supp",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "magicznie zmieniony", "mag"],
+        "region": "noxus",
+        "rok": "2020",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "150",
+        "name": "alistar",
+        "pozycja": "supp",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "zwierze",
+        "region": "runeterra",
+        "rok": "2009",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "151",
+        "name": "zilean",
+        "pozycja": "supp",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek","mag"],
+        "region": ["shurima","icathia","runeterra"],
+        "rok": "2009",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "152",
+        "name": "taric",
+        "pozycja": "supp",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["aspekt", "czlowiek"],
+        "region": ["demacia", "targon"],
+        "rok": "2009",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "153",
+        "name": "blitzcrank",
+        "pozycja": "supp",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "golem",
+        "region": "zaun",
+        "rok": "2009",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "154",
+        "name": "brand",
+        "pozycja": "supp",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "magicznie zmieniony"],
+        "region": ["flerjord","runeterra"],
+        "rok": "2011",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "155",
+        "name": "nautilius",
+        "pozycja": "supp",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "upior",
+        "region": "wyspy cienia",
+        "rok": "2012",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "156",
+        "name": "thresh",
+        "pozycja": "supp",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "inne",
+        "region": "flerjord",
+        "rok": "2013",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "157",
+        "name": "braum",
+        "pozycja": "supp",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek","zrodzony z lodu"],
+        "region": "flerjord",
+        "rok": "2014",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "158",
+        "name": "bard",
+        "pozycja": "supp",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "istota nie ziemska",
+        "region": "runeterra",
+        "rok": "2015",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "159",
+        "name": "rakan",
+        "pozycja": "supp",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "vastaj",
+        "region": "ionia",
+        "rok": "2017",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "160",
+        "name": "pyke",
+        "pozycja": "supp",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": "upior",
+        "region": "bilgewater",
+        "rok": "2018",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "161",
+        "name": "milio",
+        "pozycja": "supp",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "mag"],
+        "region": "ixtal",
+        "rok": "2023",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "162",
+        "name": "swain",
+        "pozycja": "supp",
+        "plec": "mezczyzna",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "magicznie zmieniony"],
+        "region": "noxus",
+        "rok": "2010",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "163",
+        "name": "soraka",
+        "pozycja": "supp",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "istota nie ziemska",
+        "region": ["ionia", "targon"],
+        "rok": "2009",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "164",
+        "name": "morgana",
+        "pozycja": "supp",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["aspekt, czlowiek", "magicznie zmieniony"],
+        "region": ["demacia", "targon"],
+        "rok": "2009",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "165",
+        "name": "janna",
+        "pozycja": "supp",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["bog", "duch"],
+        "region": ["shurima", "zaun"],
+        "rok": "2009",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "166",
+        "name": "sona",
+        "pozycja": "supp",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek", "mag"],
+        "region": ["demacia", "ionia"],
+        "rok": "2010",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "167",
+        "name": "karma",
+        "pozycja": "supp",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["czlowiek","spirytysta"],
+        "region": "ionia",
+        "rok": "2011",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "168",
+        "name": "leona",
+        "pozycja": "supp",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": ["aspekt", "czlowiek"],
+        "region": "targon",
+        "rok": "2011",
+        "walzacy_w_zwarciu": "0"
+    },
+    {
+        "id": "169",
+        "name": "lulu",
+        "pozycja": "supp",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "yordl",
+        "region": "bandle city",
+        "rok": "2012",
+        "walzacy_w_zwarciu": "1"
+    },
+    {
+        "id": "170",
+        "name": "zyra",
+        "pozycja": "supp",
+        "plec": "kobieta",
+        "zasoby": "mana",
+        "gatunek": "nieznany",
+        "region": "ixtal",
+        "rok": "2012",
+        "walzacy_w_zwarciu": "1"
+    }
+]`;
+// baza postaci
+let baza=JSON.parse(postacie);
+function reset_bazy(){
+    baza=JSON.parse(postacie);
+}
+
+//funkcja pomocnicza do filtrowania
+function jaka_pozycja(pozycja, rola, zmienna){
+    if(zmienna){
+        if(Array.isArray(pozycja)){
+            if(pozycja.includes(rola)){
+                return true
+            }else{
+                return false
+            }
+        }else{
+            if(pozycja===rola){
+                return true
+            }else{
+                return false
+            }
+        }
+    }else{
+        return false
+    }
+}
+//sprawdza gatunek bohatera
+function wyswietl_gatunek(){
+    let zmienna1=document.getElementById("czlowiek").checked
+    let zmienna2=document.getElementById("mag").checked
+    let zmienna3=document.getElementById("aspekt").checked
+    let zmienna4=document.getElementById("yordl").checked
+    let zmienna5=document.getElementById("wyniesiony").checked
+    let zmienna6=document.getElementById("magicznie_zmieniony").checked
+    let zmienna7=document.getElementById("darkin").checked
+    let zmienna8=document.getElementById("vastaj").checked
+    let zmienna9=document.getElementById("duch").checked
+    let zmienna10=document.getElementById("bog").checked
+    let zmienna11=document.getElementById("dziecko_pustki").checked
+    let zmienna12=document.getElementById("golem").checked
+    let zmienna13=document.getElementById("demon").checked
+    let zmienna14=document.getElementById("upior").checked
+    let zmienna23=document.getElementById("spirytysta").checked
+    let zmienna24=document.getElementById("chemicznie_zmieniony").checked
+    let zmienna16=document.getElementById("cyborg").checked
+    let zmienna17=document.getElementById("zrodzony_z_lodu").checked
+    let zmienna18=document.getElementById("istota_nie_ziemska").checked
+    let zmienna19=document.getElementById("zwierze").checked
+    let zmienna20=document.getElementById("nieumarly").checked
+    let zmienna21=document.getElementById("brakern").checked
+    let zmienna22=document.getElementById("nieznany").checked
+    baza=baza.filter(el => jaka_pozycja(el.gatunek, "czlowiek", zmienna1) || jaka_pozycja(el.gatunek, "mag", zmienna2) || jaka_pozycja(el.gatunek, "aspekt", zmienna3) 
+    ||jaka_pozycja(el.gatunek, "yordl", zmienna4) ||
+    jaka_pozycja(el.gatunek, "wyniesiony", zmienna5) ||jaka_pozycja(el.gatunek, "magicznie zmieniony", zmienna6) ||jaka_pozycja(el.gatunek, "darkin", zmienna7) 
+    ||jaka_pozycja(el.gatunek, "vastaj", zmienna8) ||jaka_pozycja(el.gatunek, "duch", zmienna9) ||jaka_pozycja(el.gatunek, "bog", zmienna10) ||jaka_pozycja(el.gatunek, "dziecko pustki", zmienna11)
+    ||jaka_pozycja(el.gatunek, "golem", zmienna12) ||jaka_pozycja(el.gatunek, "demon", zmienna13) ||jaka_pozycja(el.gatunek, "upior", zmienna14)  
+    ||jaka_pozycja(el.gatunek, "spirytysta", zmienna23) || jaka_pozycja(el.gatunek, "chemicznie zmieniony", zmienna24) || jaka_pozycja(el.gatunek, "cyborg", zmienna16) || 
+    jaka_pozycja(el.gatunek, "zrodzony z lodu", zmienna17) || jaka_pozycja(el.gatunek, "istota nie ziemska", zmienna18) || jaka_pozycja(el.gatunek, "zwierze", zmienna19) || 
+    jaka_pozycja(el.gatunek, "nieumarly", zmienna20) ||jaka_pozycja(el.gatunek, "brakern", zmienna21) || jaka_pozycja(el.gatunek, "nieznany", zmienna22))
+
+}
+//sprawdza region bohatera
+function wyswietl_region(){
+    let zmienna1=document.getElementById("ionia").checked
+    let zmienna2=document.getElementById("badle_city").checked
+    let zmienna3=document.getElementById("bilgewater").checked
+    let zmienna4=document.getElementById("demacia").checked
+    let zmienna5=document.getElementById("flerjord").checked
+    let zmienna6=document.getElementById("ixtal").checked
+    let zmienna7=document.getElementById("noxus").checked
+    let zmienna8=document.getElementById("piltower").checked
+    let zmienna9=document.getElementById("pustka").checked
+    let zmienna10=document.getElementById("shurima").checked
+    let zmienna11=document.getElementById("targon").checked
+    let zmienna12=document.getElementById("wyspy_cienia").checked
+    let zmienna13=document.getElementById("zaun").checked
+    let zmienna14=document.getElementById("runetera").checked
+    let zmienna15=document.getElementById("camavor").checked
+    let zmienna16=document.getElementById("icathia").checked
+    baza=baza.filter(el => jaka_pozycja(el.region, "ionia", zmienna1) || jaka_pozycja(el.region, "badle city", zmienna2) || jaka_pozycja(el.region, "bilgewater", zmienna3) ||jaka_pozycja(el.region, "demacia", zmienna4) ||
+    jaka_pozycja(el.region, "flerjord", zmienna5) ||jaka_pozycja(el.region, "ixtal", zmienna6) ||jaka_pozycja(el.region, "noxus", zmienna7) ||jaka_pozycja(el.region, "piltover", zmienna8) ||jaka_pozycja(el.region, "pustka", zmienna9) ||
+    jaka_pozycja(el.region, "shurima", zmienna10) ||jaka_pozycja(el.region, "targon", zmienna11) ||jaka_pozycja(el.region, "wyspy cienia", zmienna12) ||jaka_pozycja(el.region, "zaun", zmienna13) ||jaka_pozycja(el.region, "runeterra", zmienna14)
+    ||jaka_pozycja(el.region, "camavor", zmienna15) ||jaka_pozycja(el.region, "icathia", zmienna16))
+}
+//sprawdza rok wydania bohatera
+function wyswietl_rok(){
+    let zmienna1=(function(x){ if(x){return '2009'}else{return false}})(document.getElementById("r2009").checked)
+    let zmienna2=(function(x){ if(x){return '2010'}else{return false}})(document.getElementById("r2010").checked)
+    let zmienna3=(function(x){ if(x){return '2011'}else{return false}})(document.getElementById("r2011").checked)
+    let zmienna4=(function(x){ if(x){return '2012'}else{return false}})(document.getElementById("r2012").checked)
+    let zmienna5=(function(x){ if(x){return '2013'}else{return false}})(document.getElementById("r2013").checked)
+    let zmienna6=(function(x){ if(x){return '2014'}else{return false}})(document.getElementById("r2014").checked)
+    let zmienna7=(function(x){ if(x){return '2015'}else{return false}})(document.getElementById("r2015").checked)
+    let zmienna8=(function(x){ if(x){return '2016'}else{return false}})(document.getElementById("r2016").checked)
+    let zmienna9=(function(x){ if(x){return '2017'}else{return false}})(document.getElementById("r2017").checked)
+    let zmienna10=(function(x){ if(x){return '2018'}else{return false}})(document.getElementById("r2018").checked)
+    let zmienna11=(function(x){ if(x){return '2019'}else{return false}})(document.getElementById("r2019").checked)
+    let zmienna12=(function(x){ if(x){return '2020'}else{return false}})(document.getElementById("r2020").checked)
+    let zmienna13=(function(x){ if(x){return '2021'}else{return false}})(document.getElementById("r2021").checked)
+    let zmienna14=(function(x){ if(x){return '2022'}else{return false}})(document.getElementById("r2022").checked)
+    let zmienna15=(function(x){ if(x){return '2023'}else{return false}})(document.getElementById("r2023").checked)
+    let zmienna16=(function(x){ if(x){return '2024'}else{return false}})(document.getElementById("r2024").checked)
+    let zmienna17=(function(x){ if(x){return '2025'}else{return false}})(document.getElementById("r2025").checked)
+    baza=baza.filter(el => el.rok === zmienna1 || el.rok === zmienna2 || el.rok === zmienna3 || el.rok === zmienna4 || el.rok === zmienna5 || el.rok === zmienna6 || el.rok === zmienna7 || el.rok === zmienna8 || el.rok === zmienna9 || el.rok === zmienna10 || el.rok === zmienna11 || el.rok === zmienna12 || el.rok === zmienna13 || el.rok === zmienna14 || el.rok === zmienna15 || el.rok === zmienna16 || el.rok === zmienna17)
+}
+//sprawdza role bohatera
+function wyswietl_role(){
+    let zmienna1=document.getElementById("top").checked
+    let zmienna2=document.getElementById("jgl").checked
+    let zmienna3=document.getElementById("mid").checked
+    let zmienna4=document.getElementById("adc").checked
+    let zmienna5=document.getElementById("supp").checked
+   
+    baza=baza.filter(el => (jaka_pozycja(el.pozycja, "top", zmienna1) ||  jaka_pozycja(el.pozycja, "jgl", zmienna2) || jaka_pozycja(el.pozycja, "mid", zmienna3) || jaka_pozycja(el.pozycja, "adc", zmienna4) || jaka_pozycja(el.pozycja, "supp", zmienna5)))
+
+}
+//sprawdza zasieg bohatera
+function wyswietl_zasieg(){
+    let zmienna1=(function(x){ if(x){return '1'}else{return false}})(document.getElementById("dystansowiec").checked)
+    let zmienna2=(function(x){ if(x){return '0'}else{return false}})(document.getElementById("walka_w_zwarciu").checked)
+    let zmienna3=(function(x){ if(x){return '2'}else{return false}})(document.getElementById("hybryda").checked)
+    baza=baza.filter(el => el.walzacy_w_zwarciu === zmienna1 || el.walzacy_w_zwarciu === zmienna2 || el.walzacy_w_zwarciu === zmienna3)
+}
+
+//sprawdzanie plci bohatera oraz filtracja wynikow
+function wyswietl_plec(){
+    let zmienna1=(function(x){ if(x){return 'kobieta'}else{return false}})(document.getElementById("kobieta").checked)
+    let zmienna2=(function(x){ if(x){return 'mezczyzna'}else{return false}})(document.getElementById("mezczyzna").checked)
+    let zmienna3=(function(x){ if(x){return 'inne'}else{return false}})(document.getElementById("inne1").checked)
+    baza=baza.filter(el => el.plec === zmienna1 || el.plec === zmienna2 || el.plec === zmienna3)
+}
+
+//sprawdzanie zasobow bohatera
+function wyswietl_zasoby(){
+    let zmienna1=(function(x){ if(x){return 'mana'}else{return false}})(document.getElementById("mana").checked)
+    let zmienna2=(function(x){ if(x){return 'energia'}else{return false}})(document.getElementById("energia").checked)
+    let zmienna3=(function(x){ if(x){return 'furia'}else{return false}})(document.getElementById("furia").checked)
+    let zmienna4=(function(x){ if(x){return 'brak many'}else{return false}})(document.getElementById("brak_many").checked)
+    let zmienna5=(function(x){ if(x){return 'inne'}else{return false}})(document.getElementById("inne2").checked)
+    baza=baza.filter(el => el.zasoby === zmienna1 || el.zasoby === zmienna2 || el.zasoby === zmienna3 || el.zasoby === zmienna4 || el.zasoby === zmienna5)
+}
+
+function zbiorcza(){
+    reset_bazy()
+    wyswietl_plec()
+    wyswietl_zasieg()
+    wyswietl_zasoby()
+    wyswietl_role()
+    wyswietl_region()
+    wyswietl_gatunek()
+    wyswietl_rok()
+
+    wypisz()
+}
+
+
+function wypisz(){
+    caly_napis="<table><tr><th>imie</th><th>rola</th><th>płeć</th><th>zasięg</th><th>zasoby</th><th>region</th><th>gatunek</th><th>rok wydania</th></tr><tr>"
+    if(baza[0]!=null){
+        for(const postac of baza){
+            if(postac.walzacy_w_zwarciu=="0"){
+                zasieg="walka w zwarciu"
+            }
+            if(postac.walzacy_w_zwarciu=="1"){
+                zasieg="dystansowiec"
+            }
+            if(postac.walzacy_w_zwarciu=="2"){
+                zasieg="hybryda"
+            }
+            
+            caly_napis=caly_napis+"<tr><td>"+postac.name+"</td><td>"+postac.pozycja+"</td><td>"+postac.plec+"</td><td>"+zasieg+"</td><td>"+postac.zasoby+"</td><td>"+postac.region+"</td><td>"+postac.gatunek+"</td><td>"+postac.rok+"</td></tr>";
+            }
+        caly_napis=caly_napis+"</tr></tabla>"
+        document.getElementById("postac").innerHTML=caly_napis;
+    }else{
+        document.getElementById("postac").innerHTML="nie znaleziono"
+    }
+}
+/*function zaznacz_wszytsko1(){
+    formularz=document.getElementById("rok_wydania").form
+    formularz=formularz.elements
+    tak*=-1
+    for(i=0 ; formularz.lenght; i++){
+        if(formularz[i].type=="checkbox"){
+            if(tak==1){
+                formularz[i].checked=true
+            }else{
+                formularz[i].checked=false
+            }
+        }
+    }
+}
+tak=-1*/
+let tak=1
+function zaznacz(f) {
+  tak *=-1;
+  for (i=0;i<f.elements.length;i++) {
+    if (f.elements[i].type=="checkbox" && f.elements[i].name != "zaznacz_wszystko") {
+      if (tak==1) f.elements[i].checked=true;
+        else f.elements[i].checked=false;
+    }
+  }
+}
+tak=-1;
+
+wypisz()
+</script>
+</head>
+<body>
+<h1>WYSZUKIWARKA CHAMPIONÓW LEAGLE OF LEGENDS</h1>
+    <div id="kontener">
+    <div id="rola" class="filtr">
+        <label for="rola">Rola:</label><br>
+            <label for="top"><input onclick="zbiorcza()" type="checkbox" id="top" name="top" checked>TOP</label> <br>
+            <label for="jgl"><input onclick="zbiorcza()" type="checkbox" id="jgl" name="jgl" checked>JGL</label> <br>
+            <label for="mid"><input onclick="zbiorcza()" type="checkbox" id="mid" name="mid" checked>MID</label> <br>
+            <label for="adc"><input onclick="zbiorcza()" type="checkbox" id="adc" name="adc" checked>ADC</label> <br>
+            <label for="supp"><input onclick="zbiorcza()" type="checkbox" id="supp" name="supp" checked>SUPP</label> <br>
+    </div>
+    <div id="plec" class="filtr">
+        <label for="plec">Płeć:</label><br>
+            <label for="kobieta"><input onclick="zbiorcza()" type="checkbox" id="kobieta" name="kobieta" checked>KOBIETA</label><br>
+            <label for="mezczyzna"><input onclick="zbiorcza()" type="checkbox" id="mezczyzna" name="mezczyzna" checked>MEŻCZYZNA</label><br>
+            <label for="inne1"><input onclick="zbiorcza()" type="checkbox" id="inne1" name="inne1" checked>INNE</label><br>
+    </div>
+    <div id="zasieg" class="filtr">
+        <label for="zasieg">Zasięg:</label><br>
+            <label for="dystansowiec"><input onclick="zbiorcza()" type="checkbox" id="dystansowiec" name="dystansowiec" checked>DYSTANSOWIEC</label><br>
+            <label for="walka_w_zwarciu"><input onclick="zbiorcza()" type="checkbox" id="walka_w_zwarciu" name="walka_w_zwarciu" checked>WALKA W ZWARCIU</label><br>
+            <label for="hybryda"><input onclick="zbiorcza()" type="checkbox" id="hybryda" name="hybryda" checked>HYBRYDA</label><br>
+    </div>
+    <div id="zasoby" class="filtr">
+        <label for="zasoby">Zasoby:</label><br>
+            <label for="mana"><input onclick="zbiorcza()" type="checkbox" id="mana" name="mana" checked>MANA</label><br>
+            <label for="energia"><input onclick="zbiorcza()" type="checkbox" id="energia" name="energia" checked>ENERGIA</label><br>
+            <label for="furia"><input onclick="zbiorcza()" type="checkbox" id="furia" name="furia" checked>FURIA</label><br>
+            <label for="brak_many"><input onclick="zbiorcza()" type="checkbox" id="brak_many" name="brak_many" checked>BRAK MANY</label><br>
+            <label for="inne2"><input onclick="zbiorcza()" type="checkbox" id="inne2" name="inne2" checked>INNE</label><br>
+    </div>
+    <div id="region" class="filtr">
+        <form>
+            <label for="region">Region:</label><br>
+                <label for="ionia"><input onclick="zbiorcza()" type="checkbox" id="ionia" name="ionia" checked>IONIA</label><br>
+                <label for="badle_city"><input onclick="zbiorcza()" type="checkbox" id="badle_city" name="badle_city" checked>BADLE CITY</label><br>
+                <label for="bilgewater"><input onclick="zbiorcza()" type="checkbox" id="bilgewater" name="bilgewater" checked>BILGEWATER</label><br>
+                <label for="demacia"><input onclick="zbiorcza()" type="checkbox" id="demacia" name="demacia" checked>DEMACIA</label><br>
+                <label for="flerjord"><input onclick="zbiorcza()" type="checkbox" id="flerjord" name="flerjord" checked>FLERJORD</label><br>
+                <label for="ixtal"><input onclick="zbiorcza()" type="checkbox" id="ixtal" name="ixtal" checked>IXTAL</label><br>
+                <label for="noxus"><input onclick="zbiorcza()" type="checkbox" id="noxus" name="noxus" checked>NOXUS</label><br>
+                <label for="piltower"><input onclick="zbiorcza()" type="checkbox" id="piltower" name="piltower" checked>PILTOWER</label><br>
+                <label for="pustka"><input onclick="zbiorcza()" type="checkbox" id="pustka" name="pustka" checked>PUSTKA</label><br>
+                <label for="shurima"><input onclick="zbiorcza()" type="checkbox" id="shurima" name="shurima" checked>SHURIMA</label><br>
+                <label for="targon"><input onclick="zbiorcza()" type="checkbox" id="targon" name="targon" checked>TARGON</label><br>
+                <label for="wyspy_cienia"><input onclick="zbiorcza()" type="checkbox" id="wyspy_cienia" name="wyspy_cienia" checked>WYSPY CIENIA</label><br>
+                <label for="zaun"><input onclick="zbiorcza()" type="checkbox" id="zaun" name="zaun" checked>ZAUN</label><br>
+                <label for="runetera"><input onclick="zbiorcza()" type="checkbox" id="runetera" name="runetera" checked>RUNETERRA</label><br>
+                <label for="camavor"><input onclick="zbiorcza()" type="checkbox" id="camavor" name="camavor" checked>CAMAVOR</label><br>
+                <label for="icathia"><input onclick="zbiorcza()" type="checkbox" id="icathia" name="icathia" checked>ICATHIA</label><br>
+
+                <label for="zaznacz_wszystko"><input onclick="zaznacz(this.form)" type="checkbox" name="zaznacz_wszytsko">Zaznacz/Odznacz</label>
+        </form>
+    </div>
+    <div id="gatunek" class="filtr">
+        <form>
+            <label for="gatunek">Gatunek:</label><br>
+                <label for="czlowiek"><input onclick="zbiorcza()" type="checkbox" id="czlowiek" name="czlowiek" checked>CZŁOWIEK</label><br>
+                <label for="mag"><input onclick="zbiorcza()" type="checkbox" id="mag" name="mag" checked>MAG</label><br>
+                <label for="aspekt"><input onclick="zbiorcza()" type="checkbox" id="aspekt" name="aspekt" checked>ASPEKT</label><br>
+                <label for="yordl"><input onclick="zbiorcza()" type="checkbox" id="yordl" name="yordl" checked>YORDL</label><br>
+                <label for="wyniesiony"><input onclick="zbiorcza()" type="checkbox" id="wyniesiony" name="wyniesiony" checked>WYNIESIONY</label><br>
+                <label for="magicznie_zmieniony"><input onclick="zbiorcza()" type="checkbox" id="magicznie_zmieniony" name="magicznie_zmieniony" checked>MAGICZNIE ZMIENIONY</label><br>
+                <label for="darkin"><input onclick="zbiorcza()" type="checkbox" id="darkin" name="darkin" checked>DARKIN</label><br>
+                <label for="vastaj"><input onclick="zbiorcza()" type="checkbox" id="vastaj" name="vastaj" checked>VASTAJ</label><br>
+                <label for="duch"><input onclick="zbiorcza()" type="checkbox" id="duch" name="duch" checked>DUCH</label><br>
+                <label for="bog"><input onclick="zbiorcza()" type="checkbox" id="bog" name="bog" checked>BÓG</label><br>
+                <label for="dziecko_pustki"><input onclick="zbiorcza()" type="checkbox" id="dziecko_pustki" name="dziecko_pustki" checked>DZIECKO PUSTKI</label><br>
+                <label for="golem"><input onclick="zbiorcza()" type="checkbox" id="golem" name="golem" checked>GOLEM</label><br>
+                <label for="demon"><input onclick="zbiorcza()" type="checkbox" id="demon" name="demon" checked>DEMON</label><br>
+                <label for="spirytysta"><input onclick="zbiorcza()" type="checkbox" id="spirytysta" name="spirytysta" checked>SPIRYTYSTA</label><br>
+                <label for="chemicznie_zmieniony"><input onclick="zbiorcza()" type="checkbox" id="chemicznie_zmieniony" name="chemicznie_zmieniony" checked>CHEMICZNIE ZMIENIONY</label><br>
+                <label for="cyborg"><input onclick="zbiorcza()" type="checkbox" id="cyborg" name="cyborg" checked>cyborg</label><br>
+                <label for="zrodzony_z_lodu"><input onclick="zbiorcza()" type="checkbox" id="zrodzony_z_lodu" name="zrodzony_z_lodu" checked>ZRODZONY Z LODU</label><br>
+                <label for="istota_nie_ziemska"><input onclick="zbiorcza()" type="checkbox" id="istota_nie_ziemska" name="istota_nie_ziemska" checked>ISTOTA NIE ZIEMSKA</label><br>
+                <label for="zwierze"><input onclick="zbiorcza()" type="checkbox" id="zwierze" name="zwierze" checked>ZWIERZE</label><br>
+                <label for="nieumarly"><input onclick="zbiorcza()" type="checkbox" id="nieumarly" name="nieumarly" checked>NIEUMARŁY</label><br>
+                <label for="upior"><input onclick="zbiorcza()" type="checkbox" id="upior" name="upior" checked>UPIOR</label><br>
+                <label for="brakern"><input onclick="zbiorcza()" type="checkbox" id="brakern" name="brakern" checked>BRAKERN</label><br>
+                <label for="nieznany"><input onclick="zbiorcza()" type="checkbox" id="nieznany" name="inieznany" checked>NIEZNANY</label><br>
+                <label for="zaznacz_wszystko"><input onclick="zaznacz(this.form)" type="checkbox" name="zaznacz_wszytsko">Zaznacz/Odznacz</label>
+        </form>
+    </div>
+    <div id="rok" class="filtr">
+        <form>
+            <label for="rok">Rok:</label><br>
+                <label for="r2009"><input onclick="zbiorcza()" type="checkbox" id="r2009" name="r2009" checked>2009</label><br>
+                <label for="r2010"><input onclick="zbiorcza()" type="checkbox" id="r2010" name="r2010" checked>2010</label><br>
+                <label for="r2011"><input onclick="zbiorcza()" type="checkbox" id="r2011" name="r2011" checked>2011</label><br>
+                <label for="r2012"><input onclick="zbiorcza()" type="checkbox" id="r2012" name="r2012" checked>2012</label><br>
+                <label for="r2013"><input onclick="zbiorcza()" type="checkbox" id="r2013" name="r2013" checked>2013</label><br>
+                <label for="r2014"><input onclick="zbiorcza()" type="checkbox" id="r2014" name="r2014" checked>2014</label><br>
+                <label for="r2015"><input onclick="zbiorcza()" type="checkbox" id="r2015" name="r2015" checked>2015</label><br>
+                <label for="r2016"><input onclick="zbiorcza()" type="checkbox" id="r2016" name="r2016" checked>2016</label><br>
+                <label for="r2017"><input onclick="zbiorcza()" type="checkbox" id="r2017" name="r2017" checked>2017</label><br>
+                <label for="r2018"><input onclick="zbiorcza()" type="checkbox" id="r2018" name="r2018" checked>2018</label><br>
+                <label for="r2019"><input onclick="zbiorcza()" type="checkbox" id="r2019" name="r2019" checked>2019</label><br>
+                <label for="r2020"><input onclick="zbiorcza()" type="checkbox" id="r2020" name="r2020" checked>2020</label><br>
+                <label for="r2021"><input onclick="zbiorcza()" type="checkbox" id="r2021" name="r2021" checked>2021</label><br>
+                <label for="r2022"><input onclick="zbiorcza()" type="checkbox" id="r2022" name="r2022" checked>2022</label><br>
+                <label for="r2023"><input onclick="zbiorcza()" type="checkbox" id="r2023" name="r2023" checked>2023</label><br>
+                <label for="r2024"><input onclick="zbiorcza()" type="checkbox" id="r2024" name="r2024" checked>2024</label><br>
+                <label for="r2025"><input onclick="zbiorcza()" type="checkbox" id="r2025" name="r2025" checked>2025</label><br>
+                <label for="zaznacz_wszystko"><input onclick="zaznacz(this.form)" type="checkbox" name="zaznacz_wszytsko">Zaznacz/Odznacz</label>
+            </form>
+    </div>
+
+    </div>
+
+<div style="text-align: center;margin-left: 32%;margin-right: 32%;">
+
+
+
+
+<p id="postac">Rysiu pozdrawia</p>
+</div>
+</body>
+</html>
